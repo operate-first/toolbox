@@ -1,0 +1,9 @@
+check:
+  - thoth-precommit
+  - thoth-build
+build:
+  build-stratergy: Dockerfile
+  registry: quay.io
+  registry-org: aicoe
+  registry-project: of-toolbox
+  registry-secret: aicoe-pusher-secret
