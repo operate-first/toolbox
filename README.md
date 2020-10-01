@@ -7,9 +7,9 @@ This is a Operate-First toolbox that comprises of commonly used tooling to suppl
 ### Create your toolbox container
 
 ```shell
-$ toolbox create --image quay.io/aicoe/of-toolbox:v0.1.0
+$ toolbox create --image quay.io/aicoe/of-toolbox:v0.1.1
 Created container: of-toolbox
-Enter with: toolbox enter --container of-toolbox-v0.1.0
+Enter with: toolbox enter --container of-toolbox-v0.1.1
 $
 ```
 
@@ -18,7 +18,7 @@ This will create a container called `of-toolbox-<version-id>`.
 ### Enter the toolbox
 
 ```shell
-$ toolbox enter --container of-toolbox-v0.1.0
+$ toolbox enter --container of-toolbox-v0.1.1
 ```
 
 ### Tools included
