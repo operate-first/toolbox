@@ -28,6 +28,7 @@ $ toolbox enter --container of-toolbox-v0.1.0
 - KSOPS
 - Helm
 - Helm Secrets
+- Conftest
 
 ### Debugging Tips
 
