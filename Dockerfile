@@ -29,4 +29,6 @@ RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf && \
     curl -L https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz | tar -xzf - -C /usr/local/bin && \
     chmod +x /usr/local/bin/conftest
 
+COPY scripts/* /usr/local/bin/
+
 CMD /bin/bash
