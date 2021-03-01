@@ -10,6 +10,7 @@ ARG SOPS_VERSION="v3.6.1"
 ARG HELM_VERSION="v3.4.1"
 ARG HELM_SECRETS_VERSION="3.4.1"
 ARG CONFTEST_VERSION="0.21.0"
+ARG YQ_VERSION="v4.6.1"
 
 # Copy ksops and kustomize from builder
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize
@@ -27,6 +28,9 @@ RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf && \
     helm plugin install https://github.com/jkroepke/helm-secrets --version=$HELM_SECRETS_VERSION && \
     # Install conftest
     curl -L https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz | tar -xzf - -C /usr/local/bin && \
-    chmod +x /usr/local/bin/conftest
+    chmod +x /usr/local/bin/conftest && \
+    # Install yq
+    curl -o /usr/local/bin/yq -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 && \
+    chmod +x /usr/local/bin/yq
 
 CMD /bin/bash
