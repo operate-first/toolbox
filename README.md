@@ -7,9 +7,9 @@ This is a Operate-First toolbox that comprises of commonly used tooling to suppl
 ### Create your toolbox container
 
 ```shell
-$ toolbox create --image quay.io/operate-first/opf-toolbox:v0.3.3
+$ toolbox create --image quay.io/operate-first/opf-toolbox:v0.3.4
 Created container: opf-toolbox
-Enter with: toolbox enter --container opf-toolbox-v0.3.3
+Enter with: toolbox enter --container opf-toolbox-v0.3.4
 ```
 
 This will create a container called `opf-toolbox-<version-id>`.
@@ -17,7 +17,7 @@ This will create a container called `opf-toolbox-<version-id>`.
 ### Enter the toolbox
 
 ```shell
-$ toolbox enter --container opf-toolbox-v0.3.3
+$ toolbox enter --container opf-toolbox-v0.3.4
 ```
 
 ### Tools included
@@ -28,6 +28,7 @@ $ toolbox enter --container opf-toolbox-v0.3.3
 - Helm
 - Helm Secrets
 - Conftest
+- YQ
 
 ### Debugging Tips
 
