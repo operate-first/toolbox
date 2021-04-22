@@ -1,4 +1,4 @@
-ARG KSOPS_VERSION="v2.3.3"
+ARG KSOPS_VERSION="v2.5.5"
 FROM quay.io/viaductoss/ksops:$KSOPS_VERSION as ksops-builder
 FROM registry.fedoraproject.org/f32/fedora-toolbox:32
 
@@ -8,7 +8,7 @@ ENV XDG_DATA_HOME=/usr/share/.local/share \
 
 ENV KUSTOMIZE_PLUGIN_PATH=$XDG_CONFIG_HOME/kustomize/plugin/
 
-ARG SOPS_VERSION="v3.6.1"
+ARG SOPS_VERSION="v3.7.1"
 ARG HELM_VERSION="v3.4.1"
 ARG HELM_SECRETS_VERSION="3.4.1"
 ARG CONFTEST_VERSION="0.21.0"
