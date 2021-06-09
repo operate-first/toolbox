@@ -14,7 +14,7 @@ echo '#!/bin/sh' >$KUSTOMIZE_PLUGIN_HOME/viaduct.ai/v1/ksops/ksops
 chmod +x $KUSTOMIZE_PLUGIN_HOME/viaduct.ai/v1/ksops/ksops
 
 # and check all the sub directories with manifests...
-k=$(find . -name kustomization.yaml)
+k=$(find . -regex ".*/overlays/.*kustomization.yaml")
 
 for d in $k; do
     if [[ $(dirname $d) == *odh-manifests* ]]; then
