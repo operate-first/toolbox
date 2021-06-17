@@ -3,6 +3,7 @@ check:
 build:
   build-stratergy: Dockerfile
   registry: quay.io
+  custom-tag: latest
   registry-org: operate-first
   registry-project: opf-toolbox
   registry-secret: operate-first-pusher-secret
