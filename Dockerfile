@@ -48,7 +48,7 @@ RUN \
     curl -o /usr/local/bin/yq -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 && \
     chmod +x /usr/local/bin/yq && \
     # Install Operate First easy repo cloning tool
-    curl -o /usr/local/bin/o1-clone https://github.com/quaid/o1-tools/releases/download/${O1-CLONE_VERSION}/o1-clone && \
+    curl -o /usr/local/bin/o1-clone https://github.com/operate-first/toolbox/blob/master/scripts/o1-clone && \
     chmod +x /usr/local/bin/o1-clone
 
 COPY scripts/* /usr/local/bin/
