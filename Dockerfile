@@ -13,7 +13,6 @@ ARG HELM_VERSION="v3.4.1"
 ARG HELM_SECRETS_VERSION="3.4.1"
 ARG CONFTEST_VERSION="0.21.0"
 ARG YQ_VERSION="v4.6.1"
-ARG O1-CLONE_VERSION="v0.1"
 
 LABEL maintainer="Operate First" \
     name="operate-first/opf-toolbox" \
@@ -26,7 +25,6 @@ LABEL maintainer="Operate First" \
     version.helm_secrets="${HELM_SECRETS_VERSION}" \
     version.ksops="${KSOPS_VERSION}" \
     version.sops="${SOPS_VERSION}" \
-    version.o1-clone="${O1-CLONE_VERSION}"
 
 # Copy ksops and kustomize from builder
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize
@@ -46,11 +44,8 @@ RUN \
     chmod +x /usr/local/bin/conftest && \
     # Install yq
     curl -o /usr/local/bin/yq -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 && \
-    chmod +x /usr/local/bin/yq && \
-    # Install Operate First easy repo cloning tool
-    curl -o /usr/local/bin/o1-clone https://github.com/operate-first/toolbox/blob/master/scripts/o1-clone && \
-    chmod +x /usr/local/bin/o1-clone
-
+    chmod +x /usr/local/bin/yq
+    
 COPY scripts/* /usr/local/bin/
 
 CMD /bin/bash
