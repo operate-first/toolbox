@@ -24,7 +24,7 @@ LABEL maintainer="Operate First" \
     version.helm="${HELM_VERSION}" \
     version.helm_secrets="${HELM_SECRETS_VERSION}" \
     version.ksops="${KSOPS_VERSION}" \
-    version.sops="${SOPS_VERSION}" \
+    version.sops="${SOPS_VERSION}"
 
 # Copy ksops and kustomize from builder
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize
