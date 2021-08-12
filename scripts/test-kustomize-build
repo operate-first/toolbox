@@ -8,7 +8,7 @@ set -o pipefail
 # In CI test changes only
 if [ ! -z "$PULL_BASE_SHA" ] && [ ! -z "$PULL_PULL_SHA" ]; then
     echo "Checking changes in range $PULL_BASE_SHA..$PULL_PULL_SHA only."
-    bases=$(git diff --name-only $PULL_BASE_SHA $PULL_PULL_SHA | cut -d "/" -f1 | sort | uniq)
+    bases=$(git diff --name-status $PULL_BASE_SHA $PULL_PULL_SHA | grep -Po "^[^DR]\s+\K.*?(?=/)|^R\w*\s+.*\s+\K.*?(?=/)" | sort | uniq)
 else
     echo "Checking all overlays."
     bases="."
@@ -22,11 +22,19 @@ mkdir -p $KUSTOMIZE_PLUGIN_HOME/viaduct.ai/v1/ksops/
 echo '#!/bin/sh' >$KUSTOMIZE_PLUGIN_HOME/viaduct.ai/v1/ksops/ksops
 chmod +x $KUSTOMIZE_PLUGIN_HOME/viaduct.ai/v1/ksops/ksops
 
+# User can specify custom include/exclude regex
+if [ -z "$INCLUDE" ]; then
+    INCLUDE=".*/overlays/.*kustomization.yaml"
+fi
+if [ -z "$EXCLUDE" ]; then
+    EXCLUDE="*odh-manifests*"
+fi
+
 # and check all the sub directories with manifests...
-k=$(for i in $(echo "$bases"); do find $i -regex ".*/overlays/.*kustomization.yaml"; done)
+k=$(for i in $(echo "$bases"); do find $i -regex "$INCLUDE"; done)
 
 for d in $k; do
-    if [[ $(dirname $d) == *odh-manifests* ]]; then
+    if [[ $(dirname $d) == $EXCLUDE ]]; then
         echo skipping $(dirname $d)
         continue
     fi

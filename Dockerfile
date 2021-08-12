@@ -13,6 +13,7 @@ ARG HELM_VERSION="v3.4.1"
 ARG HELM_SECRETS_VERSION="3.4.1"
 ARG CONFTEST_VERSION="0.21.0"
 ARG YQ_VERSION="v4.6.1"
+ARG OPA_VERSION="0.31.0"
 
 LABEL maintainer="Operate First" \
     name="operate-first/opf-toolbox" \
@@ -42,6 +43,9 @@ RUN \
     # Install conftest
     curl -L https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz | tar -xzf - -C /usr/local/bin && \
     chmod +x /usr/local/bin/conftest && \
+    # Install OPA
+    curl -o /usr/local/bin/opa -L https://github.com/open-policy-agent/opa/releases/download/v${OPA_VERSION}/opa_linux_amd64_static && \
+    chmod +x /usr/local/bin/opa &&\
     # Install yq
     curl -o /usr/local/bin/yq -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 && \
     chmod +x /usr/local/bin/yq
