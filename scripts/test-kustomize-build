@@ -8,7 +8,7 @@ set -o pipefail
 # In CI test changes only
 if [ ! -z "$PULL_BASE_SHA" ] && [ ! -z "$PULL_PULL_SHA" ]; then
     echo "Checking changes in range $PULL_BASE_SHA..$PULL_PULL_SHA only."
-    bases=$(git diff --name-only $PULL_BASE_SHA $PULL_PULL_SHA | cut -d "/" -f1 | sort | uniq)
+    bases=$(git diff --name-status $PULL_BASE_SHA $PULL_PULL_SHA | grep -Po "^[^D]\w*\W*\K.*?(?=/)" | sort | uniq)
 else
     echo "Checking all overlays."
     bases="."
