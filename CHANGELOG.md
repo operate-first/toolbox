@@ -5,3 +5,10 @@
 ### Improvements
 * chore: Set up CI to release (#35)
 * chore: cleanup owners and switch to latest toolbox (#34)
+
+## Release 0.4.1 (2021-08-12T13:24:21)
+### Features
+* Add OPA binary and allow tests to be more configurable (#42)
+* Update version in readme (#39)
+### Improvements
+* feat: Add make, nodejs, prow binaries and bump to fedora 34 (#41)
