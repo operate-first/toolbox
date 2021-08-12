@@ -1,6 +1,9 @@
 ARG KSOPS_VERSION="v2.5.5"
 FROM quay.io/viaductoss/ksops:$KSOPS_VERSION as ksops-builder
-FROM registry.fedoraproject.org/f32/fedora-toolbox:32
+FROM gcr.io/k8s-prow/label_sync:latest as labels-sync-builder
+FROM gcr.io/k8s-prow/peribolos:latest as peribolos-builder
+
+FROM registry.fedoraproject.org/fedora-toolbox:34
 
 ENV XDG_DATA_HOME=/usr/share/.local/share \
     XDG_CACHE_HOME=/usr/share/.cache \
@@ -27,9 +30,16 @@ LABEL maintainer="Operate First" \
     version.ksops="${KSOPS_VERSION}" \
     version.sops="${SOPS_VERSION}"
 
-# Copy ksops and kustomize from builder
+# Copy ksops, kustomize, labels_sync and peribolos from builders
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize
 COPY --from=ksops-builder /go/src/github.com/viaduct-ai/kustomize-sops/*  $KUSTOMIZE_PLUGIN_PATH/viaduct.ai/v1/ksops/
+COPY --from=labels-sync-builder /app/label_sync/app.binary /usr/bin/labels_sync
+COPY --from=peribolos-builder /app/prow/cmd/peribolos/app.binary /usr/bin/peribolos
+
+# Install additional dependecies and tools
+RUN dnf install -y openssl make npm \
+    && dnf clean all \
+    && rm -rf /var/cache/yum
 
 RUN \
     # Install Sops
