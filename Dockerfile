@@ -45,7 +45,7 @@ RUN \
     # Install yq
     curl -o /usr/local/bin/yq -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 && \
     chmod +x /usr/local/bin/yq
-    
+
 COPY scripts/* /usr/local/bin/
 
 CMD /bin/bash
