@@ -1,4 +1,9 @@
 
+## Release 0.4.2 (2021-08-17T15:18:52)
+### Features
+* feat: Add opfcli (#48)
+* feat: Add pre-commit (#47)
+
 ## Release 0.4.0 (2021-06-18T16:10:26)
 ### Features
 * feat: Make test-kustomiz-build test changes only
