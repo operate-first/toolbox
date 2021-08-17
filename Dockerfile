@@ -37,9 +37,11 @@ COPY --from=labels-sync-builder /app/label_sync/app.binary /usr/bin/labels_sync
 COPY --from=peribolos-builder /app/prow/cmd/peribolos/app.binary /usr/bin/peribolos
 
 # Install additional dependecies and tools
-RUN dnf install -y openssl make npm \
+RUN dnf install -y openssl make npm pre-commit \
     && dnf clean all \
     && rm -rf /var/cache/yum
+
+ENV PRE_COMMIT_HOME=/tmp
 
 RUN \
     # Install Sops
