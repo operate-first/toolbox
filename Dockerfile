@@ -17,6 +17,7 @@ ARG HELM_SECRETS_VERSION="3.4.1"
 ARG CONFTEST_VERSION="0.21.0"
 ARG YQ_VERSION="v4.6.1"
 ARG OPA_VERSION="0.31.0"
+ARG OPFCLI_VERSION="v0.2.0"
 
 LABEL maintainer="Operate First" \
     name="operate-first/opf-toolbox" \
@@ -60,7 +61,10 @@ RUN \
     chmod +x /usr/local/bin/opa &&\
     # Install yq
     curl -o /usr/local/bin/yq -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 && \
-    chmod +x /usr/local/bin/yq
+    chmod +x /usr/local/bin/yq && \
+    # Install opfcli
+    curl -o /usr/local/bin/opfcli -L https://github.com/operate-first/opfcli/releases/download/${OPFCLI_VERSION}/opfcli-linux-amd64 && \
+    chmod +x /usr/local/bin/opfcli
 
 COPY scripts/* /usr/local/bin/
 

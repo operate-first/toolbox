@@ -33,6 +33,7 @@ $ toolbox enter --container opf-toolbox-v0.4.2
 - NPM and nodejs
 - Prow's label_sync and peribolos
 - pre-commit
+- opfcli
 
 ### Debugging Tips
 
