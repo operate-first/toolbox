@@ -49,8 +49,8 @@ RUN \
     curl -o /usr/local/bin/sops -L https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux && \
     chmod +x /usr/local/bin/sops && \
     # Install Helm
-    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/$HELM_VERSION/scripts/get-helm-3 && \
-    chmod 700 get_helm.sh && ./get_helm.sh && \
+    curl -L https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz | tar -xzf - --strip-components 1 -C /usr/local/bin linux-amd64/helm &&\
+    chmod +x /usr/local/bin/helm && \
     # Install Helm Secrets
     helm plugin install https://github.com/jkroepke/helm-secrets --version=$HELM_SECRETS_VERSION && \
     # Install conftest
