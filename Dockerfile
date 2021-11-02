@@ -18,6 +18,7 @@ ARG CONFTEST_VERSION="0.21.0"
 ARG YQ_VERSION="v4.6.1"
 ARG OPA_VERSION="0.31.0"
 ARG OPFCLI_VERSION="v0.2.0"
+ARG KUBEVAL_VERSION="v0.16.1"
 
 LABEL maintainer="Operate First" \
     name="operate-first/opf-toolbox" \
@@ -64,7 +65,10 @@ RUN \
     chmod +x /usr/local/bin/yq && \
     # Install opfcli
     curl -o /usr/local/bin/opfcli -L https://github.com/operate-first/opfcli/releases/download/${OPFCLI_VERSION}/opfcli-linux-amd64 && \
-    chmod +x /usr/local/bin/opfcli
+    chmod +x /usr/local/bin/opfcli && \
+    # Install kubeval
+    curl -L https://github.com/instrumenta/kubeval/releases/download/${KUBEVAL_VERSION}/kubeval-linux-amd64.tar.gz | tar -xzf - -C /usr/local/bin && \
+    chmod +x /usr/local/bin/kubeval
 
 COPY scripts/* /usr/local/bin/
 
