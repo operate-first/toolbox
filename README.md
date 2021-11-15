@@ -34,6 +34,9 @@ $ toolbox enter --container opf-toolbox-v0.4.2
 - Prow's label_sync and peribolos
 - pre-commit
 - opfcli
+- Kubeval
+- kubectl
+- OpenShift CLI (oc)
 
 ### Debugging Tips
 
