@@ -1,4 +1,11 @@
 
+## Release 0.5.0 (2021-11-15T20:20:19)
+* feat: Add kubectl and oc to toolbox (#56)
+* feat: Add script for yaml validation with kubeval (#55)
+* feat: Add kubeval to toolbox (#54)
+* fix: Change installing helm from installer to extracting binaries (#52)
+* Adding mini CLI script for cloning repos (#40)
+
 ## Release 0.4.2 (2021-08-17T15:18:52)
 ### Features
 * feat: Add opfcli (#48)
