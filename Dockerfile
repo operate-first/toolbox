@@ -19,6 +19,7 @@ ARG YQ_VERSION="v4.6.1"
 ARG OPA_VERSION="0.31.0"
 ARG OPFCLI_VERSION="v0.2.0"
 ARG KUBEVAL_VERSION="v0.16.1"
+ARG OKD_RELEASE="4.8.0-0.okd-2021-11-14-052418"
 
 LABEL maintainer="Operate First" \
     name="operate-first/opf-toolbox" \
@@ -68,7 +69,10 @@ RUN \
     chmod +x /usr/local/bin/opfcli && \
     # Install kubeval
     curl -L https://github.com/instrumenta/kubeval/releases/download/${KUBEVAL_VERSION}/kubeval-linux-amd64.tar.gz | tar -xzf - -C /usr/local/bin && \
-    chmod +x /usr/local/bin/kubeval
+    chmod +x /usr/local/bin/kubeval && \
+    #Install kubectl and oc
+    curl -L https://github.com/openshift/okd/releases/download/${OKD_RELEASE}/openshift-client-linux-${OKD_RELEASE}.tar.gz  | tar -xzf - -C /usr/local/bin  &&\
+    chmod +x /usr/local/bin/oc && chmod +x /usr/local/bin/kubectl
 
 COPY scripts/* /usr/local/bin/
 
