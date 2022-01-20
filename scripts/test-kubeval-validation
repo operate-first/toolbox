@@ -22,6 +22,9 @@ mkdir -p $KUSTOMIZE_PLUGIN_HOME/viaduct.ai/v1/ksops/
 echo '#!/bin/sh' >$KUSTOMIZE_PLUGIN_HOME/viaduct.ai/v1/ksops/ksops
 chmod +x $KUSTOMIZE_PLUGIN_HOME/viaduct.ai/v1/ksops/ksops
 
+# Download current skip_kinds.txt
+skipkindslist=`curl https://raw.githubusercontent.com/operate-first/schema-store/main/skip_kinds.txt`
+
 # User can specify custom include/exclude regex
 if [ -z "$INCLUDE" ]; then
     INCLUDE=".*/overlays/.*kustomization.yaml"
@@ -39,7 +42,7 @@ for d in $k; do
     fi
 
     echo checking $(dirname $d)
-    kustomize build --enable-alpha-plugins $(dirname $d) | kubeval --strict --ignore-missing-schemas --schema-location=https://raw.githubusercontent.com/operate-first/schema-store/main/schemas 2>&1
+    kustomize build --enable-alpha-plugins $(dirname $d) | kubeval --strict --skip-kinds $skipkindslist --schema-location=https://raw.githubusercontent.com/operate-first/schema-store/main/schemas 2>&1
 done
 
 #end.
