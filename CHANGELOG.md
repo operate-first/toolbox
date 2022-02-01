@@ -1,4 +1,8 @@
 
+## Release 0.6.0 (2022-02-01T13:57:29)
+* feat: Add support for skip_kinds.txt file in script (#63)
+* feat: Update version of toolbox in README (#62)
+
 ## Release 0.5.0 (2021-11-15T20:20:19)
 * feat: Add kubectl and oc to toolbox (#56)
 * feat: Add script for yaml validation with kubeval (#55)
