@@ -17,7 +17,7 @@ ARG HELM_SECRETS_VERSION="3.4.1"
 ARG CONFTEST_VERSION="0.21.0"
 ARG YQ_VERSION="v4.6.1"
 ARG OPA_VERSION="0.31.0"
-ARG OPFCLI_VERSION="v0.2.0"
+ARG OPFCLI_VERSION="v0.3.0"
 ARG KUBEVAL_VERSION="v0.16.1"
 ARG OKD_RELEASE="4.8.0-0.okd-2021-11-14-052418"
 
@@ -33,11 +33,17 @@ LABEL maintainer="Operate First" \
     version.ksops="${KSOPS_VERSION}" \
     version.sops="${SOPS_VERSION}"
 
+RUN curl -o /tmp/labels.yaml https://raw.githubusercontent.com/operate-first/common/main/labels.yaml && \
+    mkdir /etc/config && \
+    mkdir /gen-source && \
+    cp /tmp/labels.yaml /etc/config/labels.yaml && \
+    cp /tmp/labels.yaml  /gen-source/labels.yaml
+
 # Copy ksops, kustomize, labels_sync and peribolos from builders
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize
 COPY --from=ksops-builder /go/src/github.com/viaduct-ai/kustomize-sops/*  $KUSTOMIZE_PLUGIN_PATH/viaduct.ai/v1/ksops/
-COPY --from=labels-sync-builder /app/label_sync/app.binary /usr/bin/labels_sync
-COPY --from=peribolos-builder /app/prow/cmd/peribolos/app.binary /usr/bin/peribolos
+COPY --from=labels-sync-builder /ko-app/label_sync /usr/bin/labels_sync
+COPY --from=peribolos-builder /ko-app/peribolos /usr/bin/peribolos
 
 # Install additional dependecies and tools
 RUN dnf install -y openssl make npm pre-commit \
