@@ -1,4 +1,9 @@
 
+## Release 0.6.0 (2022-04-29T13:05:02)
+* a225258 bumping version of the opfcli binary to v0.3.0 (#66)
+* a3a7da8 feat: Add support for skip_kinds.txt file in script (#63)
+* 9b6945f feat: Update version of toolbox in README (#62)
+
 ## Release 0.5.0 (2021-11-15T20:20:19)
 * feat: Add kubectl and oc to toolbox (#56)
 * feat: Add script for yaml validation with kubeval (#55)
