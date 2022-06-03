@@ -1,3 +1,6 @@
+## Release 0.7.0 (2022-04-29T13:05:02)
+* bc25474 bumping version to v0.7.0 (#74)
+* ec8f411 Update opfcli version to 0.6 in readme (#73)
 
 ## Release 0.6.0 (2022-04-29T13:05:02)
 * a225258 bumping version of the opfcli binary to v0.3.0 (#66)
