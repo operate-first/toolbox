@@ -20,6 +20,7 @@ ARG OPA_VERSION="0.31.0"
 ARG OPFCLI_VERSION="v0.4.0"
 ARG KUBEVAL_VERSION="v0.16.1"
 ARG OKD_RELEASE="4.8.0-0.okd-2021-11-14-052418"
+ARG VAULT_VERSION="1.11.0"
 
 LABEL maintainer="Operate First" \
     name="operate-first/opf-toolbox" \
@@ -76,10 +77,14 @@ RUN \
     # Install kubeval
     curl -L https://github.com/instrumenta/kubeval/releases/download/${KUBEVAL_VERSION}/kubeval-linux-amd64.tar.gz | tar -xzf - -C /usr/local/bin && \
     chmod +x /usr/local/bin/kubeval && \
-    #Install kubectl and oc
+    # Install kubectl and oc
     curl -L https://github.com/openshift/okd/releases/download/${OKD_RELEASE}/openshift-client-linux-${OKD_RELEASE}.tar.gz  | tar -xzf - -C /usr/local/bin  &&\
-    chmod +x /usr/local/bin/oc && chmod +x /usr/local/bin/kubectl
-
+    chmod +x /usr/local/bin/oc && chmod +x /usr/local/bin/kubectl && \
+    # Install Vault
+    curl -L https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip -o /tmp/vault.zip && \
+    unzip /tmp/vault.zip -d /usr/local/bin/ &&  \
+    rm /tmp/vault.zip && \
+    chmod +x /usr/local/bin/vault
 COPY scripts/* /usr/local/bin/
 
 CMD /bin/bash
