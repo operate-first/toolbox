@@ -84,7 +84,11 @@ RUN \
     curl -L https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip -o /tmp/vault.zip && \
     unzip /tmp/vault.zip -d /usr/local/bin/ &&  \
     rm /tmp/vault.zip && \
-    chmod +x /usr/local/bin/vault
+    chmod +x /usr/local/bin/vault && \
+    # Install kustomize hash annotator Kustomize plugin
+    mkdir -p $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator && \
+    curl -L https://github.com/pcjun97/kustomize-hash-annotator/releases/download/1.0.1/HashAnnotator_1.0.1_Linux_x86_64.tar.gz | tar -xzf - -C $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator/
+
 COPY scripts/* /usr/local/bin/
 
 CMD /bin/bash
