@@ -42,7 +42,7 @@ for d in $k; do
     fi
 
     echo checking $(dirname $d)
-    kustomize build --enable-alpha-plugins $(dirname $d) | kubeval --strict --skip-kinds $skipkindslist --schema-location=https://raw.githubusercontent.com/operate-first/schema-store/main/schemas 2>&1
+    kustomize build --enable-alpha-plugins $(dirname $d) | kubeval --strict --skip-kinds $skipkindslist --schema-location=https://raw.githubusercontent.com/operate-first/schema-store/main/schemas --ignore-missing-schemas 2>&1
 done
 
 #end.
