@@ -1,3 +1,6 @@
+
+## Release 0.9.0 (2022-07-18T16:18:20)
+* e752d23 Add kustomize-hash-annotator to toolbox image (#80)
 ## Release 0.7.0 (2022-04-29T13:05:02)
 * bc25474 bumping version to v0.7.0 (#74)
 * ec8f411 Update opfcli version to 0.6 in readme (#73)
