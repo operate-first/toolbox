@@ -1,15 +1,15 @@
 # Operate First toolbox
 
-This is an Operate-First toolbox that comprises of commonly used tooling to supplement workflows.
+This is an Operate-First toolbox that comprises of the commonly used tooling to supplement workflows.
 
 ## Usage
 
 ### Create your toolbox container
 
 ```shell
-$ toolbox create --image quay.io/operate-first/opf-toolbox:v0.8.0
+$ toolbox create --image quay.io/operate-first/opf-toolbox:v0.9.0
 Created container: opf-toolbox
-Enter with: toolbox enter --container opf-toolbox-v0.8.0
+Enter with: toolbox enter --container opf-toolbox-v0.9.0
 ```
 
 This will create a container called `opf-toolbox-<version-id>`.
@@ -17,7 +17,7 @@ This will create a container called `opf-toolbox-<version-id>`.
 ### Enter the toolbox
 
 ```shell
-$ toolbox enter --container opf-toolbox-v0.8.0
+$ toolbox enter --container opf-toolbox-v0.9.0
 ```
 
 ### Tools included
@@ -27,6 +27,7 @@ $ toolbox enter --container opf-toolbox-v0.8.0
 - KSOPS
 - Helm
 - Helm Secrets
+- Hash Annotator
 - Conftest
 - YQ
 - Make
