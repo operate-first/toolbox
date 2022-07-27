@@ -1,4 +1,8 @@
 
+## Release 0.10.0 (2022-07-27T11:04:12)
+* c19441f feat: Add missing schemas flag to kubeval validation (#81)
+* 8a674e0 Bump release in docs.
+
 ## Release 0.9.0 (2022-07-18T16:18:20)
 * e752d23 Add kustomize-hash-annotator to toolbox image (#80)
 ## Release 0.7.0 (2022-04-29T13:05:02)
