@@ -5,8 +5,6 @@ FROM gcr.io/k8s-prow/peribolos:latest as peribolos-builder
 
 FROM registry.fedoraproject.org/fedora-toolbox:34
 
-FROM registry.access.redhat.com/ubi8/go-toolset as mustache-builder
-
 ENV XDG_DATA_HOME=/usr/share/.local/share \
     XDG_CACHE_HOME=/usr/share/.cache \
     XDG_CONFIG_HOME=/usr/share/.config
@@ -43,12 +41,11 @@ RUN curl -o /tmp/labels.yaml https://raw.githubusercontent.com/operate-first/com
     cp /tmp/labels.yaml /etc/config/labels.yaml && \
     cp /tmp/labels.yaml  /gen-source/labels.yaml
 
-# Copy ksops, kustomize, labels_sync, peribolos and mustache from builders
+# Copy ksops, kustomize, labels_sync and peribolos from builders
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize
 COPY --from=ksops-builder /go/src/github.com/viaduct-ai/kustomize-sops/*  $KUSTOMIZE_PLUGIN_PATH/viaduct.ai/v1/ksops/
 COPY --from=labels-sync-builder /ko-app/label_sync /usr/bin/labels_sync
 COPY --from=peribolos-builder /ko-app/peribolos /usr/bin/peribolos
-COPY --from=mustache-builder go/bin/mustache /usr/local/bin/mustache
 
 # Install additional dependecies and tools
 RUN dnf install -y openssl make npm pre-commit \
