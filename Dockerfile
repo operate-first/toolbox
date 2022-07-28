@@ -21,6 +21,7 @@ ARG OPFCLI_VERSION="v0.4.0"
 ARG KUBEVAL_VERSION="v0.16.1"
 ARG OKD_RELEASE="4.8.0-0.okd-2021-11-14-052418"
 ARG VAULT_VERSION="1.11.0"
+ARG MUSTACHE_VERSION="1.4.0"
 
 LABEL maintainer="Operate First" \
     name="operate-first/opf-toolbox" \
@@ -87,7 +88,10 @@ RUN \
     chmod +x /usr/local/bin/vault && \
     # Install kustomize hash annotator Kustomize plugin
     mkdir -p $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator && \
-    curl -L https://github.com/pcjun97/kustomize-hash-annotator/releases/download/1.0.1/HashAnnotator_1.0.1_Linux_x86_64.tar.gz | tar -xzf - -C $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator/
+    curl -L https://github.com/pcjun97/kustomize-hash-annotator/releases/download/1.0.1/HashAnnotator_1.0.1_Linux_x86_64.tar.gz | tar -xzf - -C $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator/ && \
+    # Install mustache
+    curl -L https://github.com/cbroglie/mustache/releases/download/v${MUSTACHE_VERSION}/mustache_${MUSTACHE_VERSION}_linux_amd64.tar.gz | tar -xzf - -C /usr/local/bin && \
+    chmod +x /usr/local/bin/mustache
 
 COPY scripts/* /usr/local/bin/
 
