@@ -5,6 +5,8 @@ FROM gcr.io/k8s-prow/peribolos:latest as peribolos-builder
 
 FROM registry.fedoraproject.org/fedora-toolbox:34
 
+FROM registry.access.redhat.com/ubi8/go-toolset as mustache-builder
+
 ENV XDG_DATA_HOME=/usr/share/.local/share \
     XDG_CACHE_HOME=/usr/share/.cache \
     XDG_CONFIG_HOME=/usr/share/.config
@@ -21,6 +23,7 @@ ARG OPFCLI_VERSION="v0.4.0"
 ARG KUBEVAL_VERSION="v0.16.1"
 ARG OKD_RELEASE="4.8.0-0.okd-2021-11-14-052418"
 ARG VAULT_VERSION="1.11.0"
+ARG MUSTACHE_VERSION="1.4.0"
 
 LABEL maintainer="Operate First" \
     name="operate-first/opf-toolbox" \
@@ -40,11 +43,12 @@ RUN curl -o /tmp/labels.yaml https://raw.githubusercontent.com/operate-first/com
     cp /tmp/labels.yaml /etc/config/labels.yaml && \
     cp /tmp/labels.yaml  /gen-source/labels.yaml
 
-# Copy ksops, kustomize, labels_sync and peribolos from builders
+# Copy ksops, kustomize, labels_sync, peribolos and mustache from builders
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize
 COPY --from=ksops-builder /go/src/github.com/viaduct-ai/kustomize-sops/*  $KUSTOMIZE_PLUGIN_PATH/viaduct.ai/v1/ksops/
 COPY --from=labels-sync-builder /ko-app/label_sync /usr/bin/labels_sync
 COPY --from=peribolos-builder /ko-app/peribolos /usr/bin/peribolos
+COPY --from=mustache-builder go/bin/mustache /usr/local/bin/mustache
 
 # Install additional dependecies and tools
 RUN dnf install -y openssl make npm pre-commit \
@@ -87,7 +91,10 @@ RUN \
     chmod +x /usr/local/bin/vault && \
     # Install kustomize hash annotator Kustomize plugin
     mkdir -p $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator && \
-    curl -L https://github.com/pcjun97/kustomize-hash-annotator/releases/download/1.0.1/HashAnnotator_1.0.1_Linux_x86_64.tar.gz | tar -xzf - -C $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator/
+    curl -L https://github.com/pcjun97/kustomize-hash-annotator/releases/download/1.0.1/HashAnnotator_1.0.1_Linux_x86_64.tar.gz | tar -xzf - -C $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator/ && \
+    # Install mustache
+    curl -L https://github.com/cbroglie/mustache/releases/download/v${MUSTACHE_VERSION}/mustache_${MUSTACHE_VERSION}_linux_amd64.tar.gz | tar -xzf - -C /usr/local/bin && \
+    chmod +x /usr/local/bin/mustache
 
 COPY scripts/* /usr/local/bin/
 
