@@ -1,4 +1,8 @@
 
+## Release 0.11.0 (2022-07-28T16:04:55)
+* ccede05 feat: Adding mustache CLI (#91)
+* a6861a8 chore: Update README for v0.10 (#89)
+
 ## Release 0.10.0 (2022-07-27T11:04:12)
 * c19441f feat: Add missing schemas flag to kubeval validation (#81)
 * 8a674e0 Bump release in docs.
