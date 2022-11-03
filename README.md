@@ -7,9 +7,9 @@ This is an Operate-First toolbox that comprises of the commonly used tooling to 
 ### Create your toolbox container
 
 ```shell
-$ toolbox create --image quay.io/operate-first/opf-toolbox:v0.10.0
+$ toolbox create --image quay.io/operate-first/opf-toolbox:v0.12.0
 Created container: opf-toolbox
-Enter with: toolbox enter --container opf-toolbox-v0.10.0
+Enter with: toolbox enter --container opf-toolbox-v0.12.0
 ```
 
 This will create a container called `opf-toolbox-<version-id>`.
@@ -17,7 +17,7 @@ This will create a container called `opf-toolbox-<version-id>`.
 ### Enter the toolbox
 
 ```shell
-$ toolbox enter --container opf-toolbox-v0.10.0
+$ toolbox enter --container opf-toolbox-v0.12.0
 ```
 
 ### Tools included
@@ -39,6 +39,7 @@ $ toolbox enter --container opf-toolbox-v0.10.0
 - kubectl
 - OpenShift CLI (oc)
 - Vault CLI
+- Jsonnet
 
 ### Debugging Tips
 

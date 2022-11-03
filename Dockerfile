@@ -15,7 +15,7 @@ ARG SOPS_VERSION="v3.7.1"
 ARG HELM_VERSION="v3.4.1"
 ARG HELM_SECRETS_VERSION="3.4.1"
 ARG CONFTEST_VERSION="0.21.0"
-ARG YQ_VERSION="v4.6.1"
+ARG YQ_VERSION="v4.29.2"
 ARG OPA_VERSION="0.31.0"
 ARG OPFCLI_VERSION="v0.4.0"
 ARG KUBEVAL_VERSION="v0.16.1"
@@ -48,7 +48,7 @@ COPY --from=labels-sync-builder /ko-app/label_sync /usr/bin/labels_sync
 COPY --from=peribolos-builder /ko-app/peribolos /usr/bin/peribolos
 
 # Install additional dependecies and tools
-RUN dnf install -y openssl make npm pre-commit \
+RUN dnf install -y openssl make npm pre-commit jsonnet \
     && dnf clean all \
     && rm -rf /var/cache/yum
 
@@ -92,6 +92,7 @@ RUN \
     # Install mustache
     curl -L https://github.com/cbroglie/mustache/releases/download/v${MUSTACHE_VERSION}/mustache_${MUSTACHE_VERSION}_linux_amd64.tar.gz | tar -xzf - -C /usr/local/bin && \
     chmod +x /usr/local/bin/mustache
+
 
 COPY scripts/* /usr/local/bin/
 
