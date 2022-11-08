@@ -1,4 +1,7 @@
 
+## Release 0.12.0 (2022-11-04T18:29:56)
+* 6f23b3f Add jsonnet and update yq.
+
 ## Release 0.11.0 (2022-07-28T16:04:55)
 * ccede05 feat: Adding mustache CLI (#91)
 * a6861a8 chore: Update README for v0.10 (#89)
