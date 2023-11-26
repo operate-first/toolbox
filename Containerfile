@@ -3,7 +3,7 @@ FROM quay.io/viaductoss/ksops:$KSOPS_VERSION as ksops-builder
 FROM gcr.io/k8s-prow/label_sync:latest as labels-sync-builder
 FROM gcr.io/k8s-prow/peribolos:latest as peribolos-builder
 
-FROM registry.fedoraproject.org/fedora-toolbox:34
+FROM registry.fedoraproject.org/fedora-toolbox:39
 
 ENV XDG_DATA_HOME=/usr/share/.local/share \
     XDG_CACHE_HOME=/usr/share/.cache \
@@ -11,17 +11,17 @@ ENV XDG_DATA_HOME=/usr/share/.local/share \
 
 ENV KUSTOMIZE_PLUGIN_PATH=$XDG_CONFIG_HOME/kustomize/plugin/
 
-ARG SOPS_VERSION="v3.7.1"
-ARG HELM_VERSION="v3.4.1"
-ARG HELM_SECRETS_VERSION="3.4.1"
-ARG CONFTEST_VERSION="0.21.0"
-ARG YQ_VERSION="v4.29.2"
-ARG OPA_VERSION="0.31.0"
-ARG OPFCLI_VERSION="v0.4.0"
+ARG CONFTEST_VERSION="0.46.0" # https://github.com/open-policy-agent/conftest/releases
+ARG HELM_SECRETS_VERSION="4.5.1"
+ARG HELM_VERSION="v3.13.2"
+ARG KUBESEAL_VERSION="0.24.4"
 ARG KUBEVAL_VERSION="v0.16.1"
-ARG OKD_RELEASE="4.8.0-0.okd-2021-11-14-052418"
-ARG VAULT_VERSION="1.11.0"
 ARG MUSTACHE_VERSION="1.4.0"
+ARG OKD_RELEASE="4.14.0-0.okd-2023-11-14-101924"
+ARG OPA_VERSION="0.58.0"
+ARG OPFCLI_VERSION="v0.4.0"
+ARG SOPS_VERSION="v3.8.1"
+ARG YQ_VERSION="v4.40.3"
 
 LABEL maintainer="Operate First" \
     name="operate-first/opf-toolbox" \
@@ -48,7 +48,7 @@ COPY --from=labels-sync-builder /ko-app/label_sync /usr/bin/labels_sync
 COPY --from=peribolos-builder /ko-app/peribolos /usr/bin/peribolos
 
 # Install additional dependecies and tools
-RUN dnf install -y openssl make npm pre-commit jsonnet \
+RUN dnf install -y git openssl make npm pre-commit jsonnet \
     && dnf clean all \
     && rm -rf /var/cache/yum
 
@@ -81,17 +81,15 @@ RUN \
     # Install kubectl and oc
     curl -L https://github.com/openshift/okd/releases/download/${OKD_RELEASE}/openshift-client-linux-${OKD_RELEASE}.tar.gz  | tar -xzf - -C /usr/local/bin  &&\
     chmod +x /usr/local/bin/oc && chmod +x /usr/local/bin/kubectl && \
-    # Install Vault
-    curl -L https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip -o /tmp/vault.zip && \
-    unzip /tmp/vault.zip -d /usr/local/bin/ &&  \
-    rm /tmp/vault.zip && \
-    chmod +x /usr/local/bin/vault && \
     # Install kustomize hash annotator Kustomize plugin
     mkdir -p $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator && \
     curl -L https://github.com/pcjun97/kustomize-hash-annotator/releases/download/1.0.1/HashAnnotator_1.0.1_Linux_x86_64.tar.gz | tar -xzf - -C $KUSTOMIZE_PLUGIN_PATH/pcjun97/v1/hashannotator/ && \
     # Install mustache
     curl -L https://github.com/cbroglie/mustache/releases/download/v${MUSTACHE_VERSION}/mustache_${MUSTACHE_VERSION}_linux_amd64.tar.gz | tar -xzf - -C /usr/local/bin && \
-    chmod +x /usr/local/bin/mustache
+    chmod +x /usr/local/bin/mustache && \
+    # Install Kubeseal
+    curl -L https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz | tar xzf - -C /usr/local/bin && \
+    chmod +x /usr/local/bin/kubeseal
 
 
 COPY scripts/* /usr/local/bin/
